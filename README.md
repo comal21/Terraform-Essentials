@@ -345,7 +345,7 @@ variable "AWS_REGION"{
   }
 
 variable "Linux_distro"{
-  #description = "Please Enter the Linux distro (redhat, ubuntu, amazon)"
+  description = "Please Enter the Linux distro (redhat, ubuntu, amazon)"
   default = "amazon"
   }
 
