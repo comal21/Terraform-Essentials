@@ -17,9 +17,8 @@
 * [Lab-4 : Remote State using Amazon Simple Storage Service](https://github.com/janjiralakirankumar/TerraformEssentials?tab=readme-ov-file#lab-4--remote-state-using-amazon-simple-storage-service)
 * [Lab-5: Launching VPC and EC2 Instance](https://github.com/janjiralakirankumar/TerraformEssentials?tab=readme-ov-file#lab-5-launching-vpc-and-ec2-instance)
 * [Lab-6: Launching Auto-Scaling services](https://github.com/janjiralakirankumar/TerraformEssentials?tab=readme-ov-file#lab-6-launching-auto-scaling-services)
-* [Lab-7: Creating a MySQL Database with RDS](https://github.com/janjiralakirankumar/TerraformEssentials?tab=readme-ov-file#lab-7-creating-a-mysql-database-with-rds)
-* [Lab-8: Creating IAM Users, Groups using Terraform.](https://github.com/janjiralakirankumar/TerraformEssentials?tab=readme-ov-file#lab-8-creating-iam-users-groups-using-terraform)
-* [Lab-9: Creating AWS resources using terraform modules](https://github.com/janjiralakirankumar/TerraformEssentials?tab=readme-ov-file#lab-9-creating-aws-resources-using-terraform-modules)
+* [Lab-7: Creating IAM Users, Groups using Terraform.](https://github.com/janjiralakirankumar/TerraformEssentials?tab=readme-ov-file#lab-8-creating-iam-users-groups-using-terraform)
+* [Lab-8: Creating AWS resources using terraform modules](https://github.com/janjiralakirankumar/TerraformEssentials?tab=readme-ov-file#lab-9-creating-aws-resources-using-terraform-modules)
 * [Frequently used Terraform Commands with Explanation](https://github.com/janjiralakirankumar/TerraformEssentials?tab=readme-ov-file#frequently-used-terraform-commands-with-explanation)
 * [Reference Links](https://github.com/janjiralakirankumar/TerraformEssentials?tab=readme-ov-file#reference-links)
 
