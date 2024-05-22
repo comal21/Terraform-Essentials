@@ -1463,18 +1463,13 @@ terraform workspace
 - Simulate increased CPU utilization to observe automatic scaling.
 - Understand how to scale infrastructure automatically in response to varying workloads.
 
-**Lab-7: Creating a MySQL Database with RDS**
-- Guide on creating an Amazon RDS (Relational Database Service) instance for MySQL using Terraform.
-- Set up the RDS instance, connect to it, and perform basic database operations.
-- Learn how to use Terraform to provision managed database services on AWS.
-
-**Lab-8: Creating IAM Users and Groups using Terraform**
+**Lab-7: Creating IAM Users and Groups using Terraform**
 - Use Terraform to create IAM (Identity and Access Management) users and groups on AWS.
 - Define IAM resources, including groups and users.
 - Associate users with groups for access control.
 - Gain practical experience in managing access to AWS resources using Terraform.
 
-**Lab-9: Creating AWS Resources using Terraform Modules**
+**Lab-8: Creating AWS Resources using Terraform Modules**
 - Demonstrate the use of Terraform modules for provisioning AWS resources.
 - Deploy resources like VPC, security groups, EC2 instances, and subnets using pre-built modules.
 - Simplify infrastructure provisioning by encapsulating resources into reusable modules.
