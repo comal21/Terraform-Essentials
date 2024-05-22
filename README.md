@@ -5,22 +5,10 @@
 2. Basic knowledge of a Cloud platform such as AWS.
 3. Good to have an AWS-Free Tier Account for Practice.
 4. Copy and paste a few details of your Allocated Region to a text file that we frequently use in labs as mentioned below:
-     - Region (**EX:** us-east-1)
-     - Availability Zones (**EX:** us-east-1a, us-east-1b)
+     - Region (**EX:** us-east-2)
+     - Availability Zones (**EX:** us-east-2a, us-east-2b)
      - AMI IDs (**EX:** Amazon Linux, RedHat, Ubuntu)
      - VPC ID, Subnet ID, Security group ID, KeyPair Name.
-
-## Table Of Contents
-* [Lab-1: Creating an EC2 Instance in AWS and Installing Terraform](https://github.com/janjiralakirankumar/TerraformEssentials?tab=readme-ov-file#lab-1-creating-an-ec2-instance-in-aws-and-installing-terraform)
-* [Lab-2: AWS EC2 instance creation using Terraform Variables](https://github.com/janjiralakirankumar/TerraformEssentials?tab=readme-ov-file#lab-2-aws-ec2-instance-creation-using-terraform-variables)
-* [Lab-3 : Using Output Feature](https://github.com/janjiralakirankumar/TerraformEssentials?tab=readme-ov-file#lab-3--using-output-feature)
-* [Lab-4 : Remote State using Amazon Simple Storage Service](https://github.com/janjiralakirankumar/TerraformEssentials?tab=readme-ov-file#lab-4--remote-state-using-amazon-simple-storage-service)
-* [Lab-5: Launching VPC and EC2 Instance](https://github.com/janjiralakirankumar/TerraformEssentials?tab=readme-ov-file#lab-5-launching-vpc-and-ec2-instance)
-* [Lab-6: Launching Auto-Scaling services](https://github.com/janjiralakirankumar/TerraformEssentials?tab=readme-ov-file#lab-6-launching-auto-scaling-services)
-* [Lab-7: Creating IAM Users, Groups using Terraform.](https://github.com/janjiralakirankumar/TerraformEssentials?tab=readme-ov-file#lab-8-creating-iam-users-groups-using-terraform)
-* [Lab-8: Creating AWS resources using terraform modules](https://github.com/janjiralakirankumar/TerraformEssentials?tab=readme-ov-file#lab-9-creating-aws-resources-using-terraform-modules)
-* [Frequently used Terraform Commands with Explanation](https://github.com/janjiralakirankumar/TerraformEssentials?tab=readme-ov-file#frequently-used-terraform-commands-with-explanation)
-* [Reference Links](https://github.com/janjiralakirankumar/TerraformEssentials?tab=readme-ov-file#reference-links)
 
 ## Lab-1: Creating an EC2 Instance in AWS and Installing Terraform
 
