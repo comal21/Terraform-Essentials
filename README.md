@@ -229,9 +229,7 @@ Finally, verify that the resources are deleted in the Console.
 
 
 ### Task-1: Create EC2 instance using variables 
-```
-cd /home/ubuntu/EC2-lab/
-```
+
 ```
 mkdir variables-lab && cd variables-lab/
 ```
@@ -365,7 +363,7 @@ terraform destroy
 Once Done remove the `EC2-lab` Directory.
 ```
 cd ~
-rm -rf EC2-lab
+rm -rf variables-lab
 ```
 #### =========================END of LAB-02=========================
 
