@@ -1034,65 +1034,7 @@ rm -rf lab_14_autoscaling.tar.gz
 ```
 #### =========================END of LAB-06=========================
 
-## Lab-7: Creating IAM Users, Groups using Terraform.
-```
-cd /home/ubuntu
-```
-```
-mkdir iam-users && cd iam-users
-```
-Create a new `iam.tf` file to define your IAM resources.
-```
-vi iam.tf
-```
-Copy and paste the below Code to create users and group also replace your `region`
-```
-provider "aws" {
-  region = "us-east-1"
-}
-
-resource "aws_iam_group" "example_group" {
-  name = "infosys"
-}
-
-resource "aws_iam_user" "example_user" {
-  for_each = toset(["user1", "user2", "user3", "user4", "user5", "user6", "user7", "user8", "user9", "user10"])
-
-  name = each.key
-}
-
-resource "aws_iam_user_group_membership" "example_membership" {
-  for_each = aws_iam_user.example_user
-
-  user   = each.value.name
-  groups = [aws_iam_group.example_group.name]
-}
-
-```
-```
-terraform init
-```
-```
-terraform fmt
-```
-```
-terraform plan
-```
-```
-terraform apply
-```
-Once applied, verify the IAM User and group in the console and then Destroy.
-```
-terraform destroy
-```
-Once destroyed, remove the Directory.
-```
-cd ~
-rm -rf iam-users
-```
-#### =========================END of LAB-07=========================
-
-## Lab-8: Creating AWS resources using terraform modules
+## Lab-7: Creating AWS resources using terraform modules
 ```
 cd /home/ubuntu/
 ```
@@ -1169,7 +1111,7 @@ rm -rf terraform-modules
 ```
 rm -rf terraform-modules.tar.gz
 ```
-#### =========================END of LAB-08=========================
+#### =========================END of LAB-07=========================
 ## Terraform Cloud
 
 ### Task 1: Create a Terraform Cloud Account
@@ -1461,13 +1403,7 @@ terraform workspace
 - Simulate increased CPU utilization to observe automatic scaling.
 - Understand how to scale infrastructure automatically in response to varying workloads.
 
-**Lab-7: Creating IAM Users and Groups using Terraform**
-- Use Terraform to create IAM (Identity and Access Management) users and groups on AWS.
-- Define IAM resources, including groups and users.
-- Associate users with groups for access control.
-- Gain practical experience in managing access to AWS resources using Terraform.
-
-**Lab-8: Creating AWS Resources using Terraform Modules**
+**Lab-7: Creating AWS Resources using Terraform Modules**
 - Demonstrate the use of Terraform modules for provisioning AWS resources.
 - Deploy resources like VPC, security groups, EC2 instances, and subnets using pre-built modules.
 - Simplify infrastructure provisioning by encapsulating resources into reusable modules.
