@@ -457,7 +457,7 @@ rm -rf output-variable-lab-v0.13.5.tar.gz
 cd ~
 ```
 ```
-mkdir lab5 && cd lab5
+mkdir lab3 && cd lab3
 ```
 ```
 vi local.tf
@@ -508,7 +508,7 @@ terraform destroy
 ```
 ```
 cd ~
-rm -rf lab5
+rm -rf lab3
 ```
 ## Understanding Terraform functions 
 ### Functions
@@ -516,7 +516,7 @@ rm -rf lab5
 cd ~
 ```
 ```
-mkdir lab6 && cd lab6
+mkdir functions && cd functions
 ```
 ```
 vi functions.tf
@@ -571,7 +571,7 @@ terraform destroy
 ```
 ```
 cd ~
-rm -rf lab6
+rm -rf functions
 ```
 ## Data sources
 
@@ -579,7 +579,7 @@ rm -rf lab6
 cd ~
 ```
 ```
-mkdir lab7 && cd lab7
+mkdir data && cd data
 ```
 ```
 vi data.tf
@@ -624,7 +624,7 @@ terraform destroy
 ```
 ```
 cd ~
-rm -rf lab7
+rm -rf data
 ```
 
 ## Lab-4 : Remote State using Amazon Simple Storage Service 
