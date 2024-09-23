@@ -1210,7 +1210,7 @@ resource "aws_instance" "test_instance" {
   ami = "<***AMI_ID OF THE EC2 Instance to be IMPORTED***>"
   instance_type = "<***INSTANCE TYPE***>"
   tags = {
-    name = "<TAGS if ANY / New Tags can be added as well>"
+    Name = "<TAGS if ANY / New Tags can be added as well>"
   }
 }
 ```
