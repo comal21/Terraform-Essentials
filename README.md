@@ -727,7 +727,210 @@ rm -rf S3-Lab
 
 #### =========================END of LAB-04=========================
 
-## Lab-5: Launching VPC and EC2 Instance 
+## Lab-5: Understanding Terraform Import
+```
+mkdir import_lab && cd import_lab
+```
+```
+vi import.tf
+```
+Add the given lines, by pressing "INSERT" 
+```
+provider "aws" {
+  region = "us-east-1"
+}   
+
+resource "aws_instance" "test_instance" {
+  ami = "<***AMI_ID OF THE EC2 Instance to be IMPORTED***>"
+  instance_type = "<***INSTANCE TYPE***>"
+  tags = {
+    Name = "<TAGS if ANY / New Tags can be added as well>"
+  }
+}
+```
+Save the file using "ESCAPE + :wq!"
+```
+terraform init
+```
+```
+
+terraform import aws_instance.test_instance ***Instance-ID***
+```
+```
+terraform plan
+```
+```
+terraform apply
+```
+```
+terraform destroy
+```
+```
+cd ..
+```
+```
+rm -rf import_lab
+```
+#### =========================END of LAB-05=========================
+
+## Lab-6: Creating AWS resources using terraform modules
+```
+cd /home/ubuntu/
+```
+```
+sudo apt install tree -y
+```
+```
+wget https://s3.ap-south-1.amazonaws.com/files.cloudthat.training/devops/terraform-essentials/terraform-modules.tar.gz
+```
+```
+tar -xvf terraform-modules.tar.gz
+```
+```
+cd terraform-modules
+```
+```
+tree
+```
+Cat all files to see the module structure
+```
+vi main.tf
+```
+Add the below code after block `module "my_security_group"`
+```
+output "secgrpid" {
+  description = "Newly created sec grp"
+  value       = module.my_security_group.sgid
+}
+```
+```
+cat provider.tf
+```
+**Note:** No change needed in `provider.tf`
+```
+vi variables.tf 
+```
+**Note:** Replace the `Region` Default `VPC ID,` `AMI Id` and `Subnet ID` from your Allocated region in `variable.tf` file.
+* `Change vpc_id` to default VPC in your region (**Ex:** vpc-0e608033e14b01c3c)
+* `Change subnet id` Use any available subnets from AZ `a or b`. (**Ex:** subnet-086dd80df2e64b56b)
+
+Then, Save it
+
+Now, Create a key pair. The same public key will be used in the new EC2 Instance.
+```
+ssh-keygen -f mykey
+```
+```
+terraform init
+```
+```
+terraform fmt
+```
+```
+terraform validate
+```
+```
+terraform plan
+```
+```
+terraform apply -auto-approve
+```
+**Note:**
+* If it is showing any `Error` for `Security group / KeyPair`, It means that they are already existing, Rename it in `variable.tf` file or delete the Keypair/Security Group in the Console.
+
+Once the resources are created. Then, verify all the resources and then destroy them.
+```
+terraform destroy
+```
+Once Destroyed, remove the Directory and Zip FIle.
+```
+cd ~
+rm -rf terraform-modules
+```
+```
+rm -rf terraform-modules.tar.gz
+```
+#### =========================END of LAB-06=========================
+
+## Lab-7: Terraform Cloud
+
+### Task 1: Create a Terraform Cloud Account
+
+* Create a Terraform Cloud Account and Login
+```
+https://app.terraform.io/app
+```
+  
+### Task 2: Create a new repo in Github
+
+* Sign in in Github
+* Click on New
+* In the repository name: Enter "Terraform-Cloud"
+* Click on Private
+* Click on Create Repository
+* Click on creating a new file
+* Name your file vars.tf
+* Add the following code
+```
+  variable "AWS_ACCESS_KEY"{}
+  variable "AWS_SECRET_KEY"{}
+```
+* Click on commit the new file.
+* Add another file by clicking on add file dropdown and select create new file. 
+* Name the file as instance.tf, Insert the below contents and commit the file. 
+```
+  provider "aws" { 
+  region = "us-east-1" 
+  access_key=var.AWS_ACCESS_KEY 
+  secret_key=var.AWS_SECRET_KEY 
+  } 
+
+  resource "aws_instance" "web" { 
+  ami           = "ami-0fc5d935ebf8bc3bc" 
+  instance_type = "t3.micro" 
+  tags = { 
+  Name = "Hello from Terraform Cloud" 
+  } 
+  }
+```
+
+### Task 3: Create a new workspace in Terraform Cloud
+
+* Create a new organization
+* Click on create a new workspace
+* In tab 1, Select VCS (Version Control System) 
+* In tab 2, select Github
+* Once you click Github.com, a new window will popup. Sign into your GitHub account from there. Perform the verification and install Terraform on Git. 
+* Now, we have the GitHub account connected with Terraform cloud. In tab 3 choose the repository where Terraform configuration is present, in this case, its Terraform-Cloud.
+* In tab 4, Provide the name for the workspace of  your own choice and click the Create Workspace button. Once the workspace is created, you will see a success message in a popup. 
+
+### Task 4: Plan and Apply the changes 
+
+* Now on the terraform cloud graphics, click Configure variables. In this demo, we will pass the credentials of AWS (Access key and secret key) to authenticate with users. 
+* Click on add variable and provide the following details. Make sure you enable the sensitive check box. 
+
+  `AWS_ACCESS_KEY = Your aws access key`
+  
+  `AWS_SECRET_ACCESS_KEY = Your aws secret key`
+
+* Click on New Run and choose the option plan and apply
+* Once Plan is successful, scroll down a bit, and it will wait for the confirmation/approval to apply the changes. Clickâ€¯Confirm & Apply 
+* Provide a message in the textbox and click on Confirm Plan 
+* You will see that the terraform apply is happening. 
+* Verify that the resource has been created in your AWS Console 
+
+### Task 5: Terminate the resources 
+
+* On the settings tab, click on Destruction and Deletion 
+* Now, click on `queue destroy plan`. 
+* Provide the Workspace name and click on Queue Destroy plan 
+* Now you will notice that queue is scheduled. The deletion queue has two stages. Plan and apply (to delete the infra) 
+* Approve to start the delete operation by clicking Confirm & Apply
+* Once completed, check the run tab to check the status. 
+* Check the AWS console to verify that the resources are no longer active. 
+#### =========================END of LAB-07========================
+
+## Self Exercise Lab 1: Launching VPC and EC2 Instance 
 
 ### Task-1: Launching VPC and creating subnets
 ```
@@ -945,9 +1148,9 @@ rm -rf lab_10_vpc
 ```
 rm -rf lab_10_vpc_v0.13.tar.gz
 ```
-#### =========================END of LAB-05=========================
+#### =========================Self Exercise Lab 1=========================
 
-## Lab-6: Launching Auto-Scaling services
+## Self Exercise Lab 2: Launching Auto-Scaling services
 
 ### Task-1: Create ASG
 ```
@@ -1032,207 +1235,9 @@ rm -rf lab_14_autoscaling
 ```
 rm -rf lab_14_autoscaling.tar.gz
 ```
-#### =========================END of LAB-06=========================
+#### =========================Self Exercise Lab 2=========================
 
-## Lab-7: Creating AWS resources using terraform modules
-```
-cd /home/ubuntu/
-```
-```
-sudo apt install tree -y
-```
-```
-wget https://s3.ap-south-1.amazonaws.com/files.cloudthat.training/devops/terraform-essentials/terraform-modules.tar.gz
-```
-```
-tar -xvf terraform-modules.tar.gz
-```
-```
-cd terraform-modules
-```
-```
-tree
-```
-Cat all files to see the module structure
-```
-vi main.tf
-```
-Add the below code after block `module "my_security_group"`
-```
-output "secgrpid" {
-  description = "Newly created sec grp"
-  value       = module.my_security_group.sgid
-}
-```
-```
-cat provider.tf
-```
-**Note:** No change needed in `provider.tf`
-```
-vi variables.tf 
-```
-**Note:** Replace the `Region` Default `VPC ID,` `AMI Id` and `Subnet ID` from your Allocated region in `variable.tf` file.
-* `Change vpc_id` to default VPC in your region (**Ex:** vpc-0e608033e14b01c3c)
-* `Change subnet id` Use any available subnets from AZ `a or b`. (**Ex:** subnet-086dd80df2e64b56b)
 
-Then, Save it
-
-Now, Create a key pair. The same public key will be used in the new EC2 Instance.
-```
-ssh-keygen -f mykey
-```
-```
-terraform init
-```
-```
-terraform fmt
-```
-```
-terraform validate
-```
-```
-terraform plan
-```
-```
-terraform apply -auto-approve
-```
-**Note:**
-* If it is showing any `Error` for `Security group / KeyPair`, It means that they are already existing, Rename it in `variable.tf` file or delete the Keypair/Security Group in the Console.
-
-Once the resources are created. Then, verify all the resources and then destroy them.
-```
-terraform destroy
-```
-Once Destroyed, remove the Directory and Zip FIle.
-```
-cd ~
-rm -rf terraform-modules
-```
-```
-rm -rf terraform-modules.tar.gz
-```
-#### =========================END of LAB-07=========================
-## Terraform Cloud
-
-### Task 1: Create a Terraform Cloud Account
-
-* Create a Terraform Cloud Account and Login
-```
-https://app.terraform.io/app
-```
-  
-### Task 2: Create a new repo in Github
-
-* Sign in in Github
-* Click on New
-* In the repository name: Enter "Terraform-Cloud"
-* Click on Private
-* Click on Create Repository
-* Click on creating a new file
-* Name your file vars.tf
-* Add the following code
-```
-  variable "AWS_ACCESS_KEY"{}
-  variable "AWS_SECRET_KEY"{}
-```
-* Click on commit the new file.
-* Add another file by clicking on add file dropdown and select create new file. 
-* Name the file as instance.tf, Insert the below contents and commit the file. 
-```
-  provider "aws" { 
-  region = "us-east-1" 
-  access_key=var.AWS_ACCESS_KEY 
-  secret_key=var.AWS_SECRET_KEY 
-  } 
-
-  resource "aws_instance" "web" { 
-  ami           = "ami-0fc5d935ebf8bc3bc" 
-  instance_type = "t3.micro" 
-  tags = { 
-  Name = "Hello from Terraform Cloud" 
-  } 
-  }
-```
-
-### Task 3: Create a new workspace in Terraform Cloud
-
-* Create a new organization
-* Click on create a new workspace
-* In tab 1, Select VCS (Version Control System) 
-* In tab 2, select Github
-* Once you click Github.com, a new window will popup. Sign into your GitHub account from there. Perform the verification and install Terraform on Git. 
-* Now, we have the GitHub account connected with Terraform cloud. In tab 3 choose the repository where Terraform configuration is present, in this case, its Terraform-Cloud.
-* In tab 4, Provide the name for the workspace of  your own choice and click the Create Workspace button. Once the workspace is created, you will see a success message in a popup. 
-
-### Task 4: Plan and Apply the changes 
-
-* Now on the terraform cloud graphics, click Configure variables. In this demo, we will pass the credentials of AWS (Access key and secret key) to authenticate with users. 
-* Click on add variable and provide the following details. Make sure you enable the sensitive check box. 
-
-  `AWS_ACCESS_KEY = Your aws access key`
-  
-  `AWS_SECRET_ACCESS_KEY = Your aws secret key`
-
-* Click on New Run and choose the option plan and apply
-* Once Plan is successful, scroll down a bit, and it will wait for the confirmation/approval to apply the changes. Clickâ€¯Confirm & Apply 
-* Provide a message in the textbox and click on Confirm Plan 
-* You will see that the terraform apply is happening. 
-* Verify that the resource has been created in your AWS Console 
-
-### Task 5: Terminate the resources 
-
-* On the settings tab, click on Destruction and Deletion 
-* Now, click on `queue destroy plan`. 
-* Provide the Workspace name and click on Queue Destroy plan 
-* Now you will notice that queue is scheduled. The deletion queue has two stages. Plan and apply (to delete the infra) 
-* Approve to start the delete operation by clicking Confirm & Apply
-* Once completed, check the run tab to check the status. 
-* Check the AWS console to verify that the resources are no longer active. 
------------------------------------------------------------------------------------------------------------------------------------
-## Self Exercise: Terraform Import
-## Understanding Terraform Import
-```
-mkdir import_lab && cd import_lab
-```
-```
-vi import.tf
-```
-Add the given lines, by pressing "INSERT" 
-```
-provider "aws" {
-  region = "us-east-1"
-}   
-
-#Execute the below command
-#terraform import aws_instance.test_instance <***Resource-ID***>
-
-resource "aws_instance" "test_instance" {
-  ami = "<***AMI_ID OF THE EC2 Instance to be IMPORTED***>"
-  instance_type = "<***INSTANCE TYPE***>"
-  tags = {
-    Name = "<TAGS if ANY / New Tags can be added as well>"
-  }
-}
-```
-Save the file using "ESCAPE + :wq!"
-```
-terraform init
-```
-```
-terraform plan
-```
-```
-terraform apply
-```
-```
-terraform destroy
-```
-```
-cd ..
-```
-```
-rm -rf import_lab
-```
 -----------------------------------------------------------------------------------------------------------------------------
 ## Frequently used Terraform Commands with Explanation
 
@@ -1364,47 +1369,4 @@ terraform workspace
 11. [Terraform Beginner FAQs and Examples](https://www.hashicorp.com/resources/solutions-eng-webinar-episode-1-terraform)
 12. [hashicorp/terraform-GitHub guides](https://github.com/hashicorp/terraform-guides/tree/master/infrastructure-as-code)
 ---
-### Summaries of each lab in the Terraform Essentials Cheat Sheet:
 
-**Lab-1: Creating an EC2 Instance in AWS and Installing Terraform**
-- Manually create an EC2 instance in AWS.
-- Install Terraform on the EC2 instance.
-- Launch an EC2 instance with specific configurations.
-- Connect to the EC2 instance securely.
-- Create a basic local Terraform configuration to understand Terraform workflow.
-- Perform resource cleanup by destroying the created resources.
-
-**Lab-2: AWS EC2 instance creation using Terraform Variables**
-- Use Terraform variables to create an EC2 instance.
-- Create a Terraform configuration with variables for AWS access keys, secret keys, and the region.
-- Create a map variable that dynamically selects the AMI based on the Linux distribution.
-- Gain insights into using variables in Terraform configurations.
-
-**Lab-3: Using Output Feature**
-- Demonstrate the use of the Terraform output feature.
-- Create an EC2 instance and retrieve its public and private IP addresses using Terraform outputs.
-- Learn how to extract and display data from Terraform-managed resources.
-
-**Lab-4: Remote State using Amazon Simple Storage Service (S3)**
-- Configure Terraform to store its state file in Amazon S3 as a remote backend.
-- Manually create an S3 bucket and configure Terraform to use it for state file storage.
-- Emphasize the importance of remote state for collaboration and multi-machine workflows.
-- Learn about securing S3 buckets and managing access to them.
-
-**Lab-5: Launching VPC and EC2 Instance**
-- Launch a Virtual Private Cloud (VPC) and create subnets using Terraform.
-- Configure the VPC, subnets, security groups, and an EC2 key pair.
-- Gain hands-on experience in provisioning infrastructure on AWS using Terraform.
-
-**Lab-6: Launching Auto-Scaling Services**
-- Create an Auto Scaling Group (ASG) using Terraform.
-- Enable dynamic management of a group of EC2 instances based on traffic demand.
-- Create CloudWatch alarms to monitor the ASG's performance.
-- Simulate increased CPU utilization to observe automatic scaling.
-- Understand how to scale infrastructure automatically in response to varying workloads.
-
-**Lab-7: Creating AWS Resources using Terraform Modules**
-- Demonstrate the use of Terraform modules for provisioning AWS resources.
-- Deploy resources like VPC, security groups, EC2 instances, and subnets using pre-built modules.
-- Simplify infrastructure provisioning by encapsulating resources into reusable modules.
-- Focus on module structuring and creating resources efficiently.
