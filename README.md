@@ -1050,10 +1050,6 @@ Add the given lines, by pressing "INSERT" and replace your `region` and add your
 
 ##### The first 3 lines are already present. you can add the remaining lines.
 ```
-variable "AWS_REGION" {
-  default = "us-east-2"
-}
-
 variable "PATH_TO_PUBLIC_KEY" {
   default = "mykey.pub"
 }
@@ -1098,19 +1094,6 @@ vi instance.tf
 ```
 Add the given lines, by pressing "INSERT" The first block will be already present in the file. But, replace the entire code and update your `AvailabilityZone,` `YourName` in `AWS Instance` and `EBS Volume` both.
 ```
-resource "aws_instance" "example" {
-  ami = var.AMIS[var.AWS_REGION]
-  instance_type = "t2.micro"
-  # the VPC subnet
-  subnet_id = aws_subnet.main-public-1.id
-  # the security group
-  vpc_security_group_ids = [aws_security_group.allow-ssh.id]
-  # the public SSH key
-  key_name = aws_key_pair.mykeypair.key_name
-  tags = {
-    Name = "YourName-Lab5-EC2"
-  }
-}
 
 resource "aws_ebs_volume" "ebs-volume-1" {
  availability_zone = "us-east-2a"
